@@ -50,7 +50,7 @@ server.use('/get',require('./server/Routes and controllers/Filegetters'));
 server.use('/game/5b4e2de2fb6fc069480ddf54',require('./server/Routes and controllers/Games/Matching'));
 server.use('/game/5b4e8351e7179a508a8d525e',require('./server/Routes and controllers/Games/Questioning'));
 server.use('/games',require('./server/Routes and controllers/Games/Default'));
-server.use('/support',require('./server/Routes and controllers/support'));
+server.use('/support',require('./server/Routes and controllers/Support'));
 server.listen(port,function (){
 	console.log("Server runs on port "+port);
 });
