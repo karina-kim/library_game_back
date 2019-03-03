@@ -1,0 +1,105 @@
+//TODO things
+ 	4) changing backend fully
+ 	5) creating web application 
+ 	6) creating android application
+ 	7) creating iOS application
+//routers and functions {ALL GET REQUESTS WILL BE HANDLED ON FRONT PAGE}
+	user
+		login
+			POST (email and password)
+				check if this user is already logged in
+					if logged in => destroy session
+				create session 
+				RESPONSE: session id
+				ON ERROR RESPONSE: error message
+		logout
+			POST (userID)
+				check if the user is logged in 
+				destroy the session ID
+				ERROR: sending back 
+		registration
+			POST (email,universityID, password)
+				create user with given props
+				save the user
+				RESPONSE: responce status(200)
+				ERROR: error message
+		addAvatar
+			POST (userID, image)
+				find the user by userID
+				update image
+				RESPONCE: responce status(200)
+				ERROR: sending back error message
+		addPoints
+			POST (adminPassword, userID,points)
+				get user by userID
+				add points to user
+				RESPONCE:pesponce status(200)
+				ERROR: sending back error message
+	games
+		matchingGame
+			startGame:
+				POST(userID)
+					find session by userID
+					create session.matching-game
+					create array of 20 cards[cardIDs]
+					create array of 20 cardIDs
+					RESPONCE: array(cardIDs) 
+					ERROR: error message
+			openCard:
+				POST(userID, cardID)
+					find session by sessionID
+					find session.selected array
+					if cant find=> create it
+					find card by cardID
+					push card 
+					if (session.selected.length = 2)
+						if(session.selected[0].cardID != session selected[1].cardID)
+							RESPONCE:200, could not match
+						else 
+							push selected to session.found
+							RESPONCE:200, matched + cardID
+						clear session. selected
+			finishGame:
+				POST (userID)
+					findSession
+					destroy session.matching-game 
+					RESPONCE:200, deleted
+					ONERROR:500, error
+			addCard
+				POST (adminPassword,card)
+					check adminPW
+					add card
+					RESPONCE:200
+					ERRROR:500 + error message
+		quiz
+			Startgame:
+				POST(userID)
+					find session by userID
+					create session.matching-game
+					getAllQuestions
+					RESPONCE:array of all questions
+			ANSWER QUESTION:
+				POST(QuestionID, ANSWER)
+					find question by id
+					match answers
+					if correct:
+						RESPONSE: 200 "CORRECT"
+					else RESPONCE:200 "NOT CORRECT"
+					ERROR: 500 ERROR MESSAGE
+
+				
+
+
+
+
+//mechanics 
+
+
+//main logic 
+
+
+//matching game notes
+
+//quiz game notes
+
+//auth
