@@ -10,7 +10,7 @@ const MongoStore = require('connect-mongo')(session);
 // declarations
 const server = express();
 const port = 8000;
-const session_secret = "temp"
+const session_secret = "temp";
 const session_opts ={
     store: new MongoStore({
         mongooseConnection: DB.connection
@@ -32,15 +32,9 @@ function ensure_authed(req,res,next){
 }
 
 
-//setups
-server.set('trust proxy', 1)
-server.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+const path = require('path');
+// Serve the static files from the React app
+server.use(express.static(path.join(__dirname, 'build')));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(session(session_opts));
@@ -51,6 +45,10 @@ server.use('/game/5b4e2de2fb6fc069480ddf54',require('./server/Routes and control
 server.use('/game/5b4e8351e7179a508a8d525e',require('./server/Routes and controllers/Games/Questioning'));
 server.use('/games',require('./server/Routes and controllers/Games/Default'));
 server.use('/support',require('./server/Routes and controllers/Support'));
+
+server.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/build/index.html'));
+});
 server.listen(port,function (){
 	console.log("Server runs on port "+port);
 });
