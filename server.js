@@ -9,7 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 
 // declarations
 const server = express();
-const port = 8000;
+const port = process.env.PORT || '8000';
 const session_secret = "temp";
 const session_opts ={
     store: new MongoStore({
