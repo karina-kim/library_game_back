@@ -73,13 +73,31 @@ const Controllers  = {
         if(!req.body.name) errors.push("Empty First name field");
         if(!req.body.second_name) errors.push("Empty Second Name field");
 		if(!req.body.password) errors.push("Empty password field");
-		if(!req.body.university_id) errors.push("Empty ID field");
 		if(req.body.password!==req.body.password2) errors.push("Passwords do not match")
 		if(errors.length===0)
 		{
-			let user = new User({
-				email:req.body.email, name: req.body.name, second_name: req.body.second_name, username: req.body.username, password:req.body.password, university_id:req.body.university_id,points:0,
-			});
+			var user=null;
+			if(req.body.university_id) {
+                user = new User({
+                    email: req.body.email,
+                    name: req.body.name,
+                    second_name: req.body.second_name,
+                    username: req.body.username,
+                    password: req.body.password,
+                    university_id: req.body.university_id,
+                    points: 0,
+                });
+            }
+            else{
+                user = new User({
+                    email: req.body.email,
+                    name: req.body.name,
+                    second_name: req.body.second_name,
+                    username: req.body.username,
+                    password: req.body.password,
+                    points: 0,
+                });
+			}
 			console.log("Registration")
 			User.register(user,
 				function (err,user)
@@ -170,7 +188,6 @@ const Controllers  = {
 	},
 	get_users_sorted_by_points:(req,res)=>{
 		User.get_users_sorted_by_points((err,data)=>{
-			console.log(err,data);
 			if(err) Responces.send_errors([err],res);
 			else Responces.send_responce(data,res);
 		})

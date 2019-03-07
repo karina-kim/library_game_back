@@ -157,7 +157,7 @@ module.exports.updateUser = (newUser,oldPassword,id,callback)=>{
 }
 //does not check which game is it, TODO
 module.exports.get_users_sorted_by_points=(callback)=>{
-    User.find({}).sort({points:-1}).limit(10).exec(function(err, docs) {
+    User.find({username: "User"}).sort({points:-1}).limit(10).exec(function(err, docs) {
         callback(err,docs)
     });
 }
