@@ -122,7 +122,7 @@ module.exports.save_color2 = function(id, color, callback){
 
 module.exports.add_points = function(id,points,callback){
     console.log("GONNA ADD ",points, "to ",id)
-    User.findById(id,((err,user)=>
+    User.findOne(id,((err,user)=>
         {
             if(err)throw err;
             else
@@ -163,7 +163,7 @@ module.exports.get_users_sorted_by_points=(callback)=>{
 }
 module.exports.get_points = (id,callback)=>{
     console.log("id is ",id);
-    User.findById(id,((err,user)=> {
+    User.findOne(id,((err,user)=> {
         if (err) throw err;
         else {
             console.log(user.points)
