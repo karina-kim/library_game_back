@@ -193,8 +193,6 @@ const Controllers  = {
 		})
 	},
 	get_user_points:(req,res)=>{
-		console.log("USER ID IS")
-		console.log(req.body.id);
 		User.get_points(req.body.id, (err,points)=>{
 			if(!err)Responces.send_responce({points:points},res);
 			else Responces.send_errors({points},res);
