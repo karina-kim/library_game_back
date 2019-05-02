@@ -176,8 +176,14 @@ const Controllers  = {
 			errors.push("Passwords do not match!");
 		}
 		if(errors.length===0){
-			var newUser = new User({email:req.body.email,university_id:req.body.university_id,name:req.body.name,second_name:req.body.second_name,school:req.body.school,university_started_date:req.body.year, password:req.body.new_password});
-			User.updateUser(newUser,req.body.old_password,req.body.user,((err,data)=>{
+			let user =  {email:req.body.email,
+                university_id:req.body.university_id,
+                name:req.body.name,
+                second_name:req.body.second_name,
+                school:req.body.school,
+                university_started_date:req.body.year,
+                password:req.body.new_password}
+			User.updateUser(user,req.body.old_password,req.body.user,((err,data)=>{
 				if(err) Responces.send_errors(err,res);
 				else{ Responces.send_responce(data,res)}
 			}))

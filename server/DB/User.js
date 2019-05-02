@@ -146,14 +146,7 @@ module.exports.get_image=(id,callback)=>{
     }))
 }
 module.exports.updateUser = (newUser,oldPassword,id,callback)=>{
-    console.log("=>",id,"=>",oldPassword)
-    User.findOne({_id:id, password:oldPassword}).then((err,user)=>{
-        if(err) throw err;
-        else{
-            user= newUser;
-            user.save(callback);
-        }
-    })
+    User.findOneAndUpdate({_id:id,password:oldPassword},{$set:{...newUser}},{new:true},callback);
 }
 //does not check which game is it, TODO
 module.exports.get_users_sorted_by_points=(callback)=>{
